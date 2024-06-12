@@ -36,11 +36,23 @@ class ClassicSudokuSover
     }
 
     // Make method recursive and it must return a int[][] in other words the solution
-    public void SudokuSolver()
+    public void SudokuSolver(int[][] grid)
     {
+        List<int> possibleNumbers = new List<int>();
+        
         if (_grid[_currentRow][_currentCol] == 0)
         {
+            int[] row = _grid[_currentRow];
+            List<int> colList = new List<int>();
+            for (int i = 0; i < 9; i++)
+            {
+                colList.Add(_grid[i][_currentCol]);
+            }
+            int[] col = colList.ToArray();
 
+            possibleNumbers.Union(_constraintChecker.rowCheck(row)).ToList();
+            possibleNumbers.Union(_constraintChecker.collumnCheck(col)).ToList();
+            possibleNumbers.Union(_constraintChecker.rowCheck(row)).ToList();
         } else
         {
             if(_currentCol != 8)
@@ -63,7 +75,24 @@ class ClassicSudokuSover
         return _grid;
     }
 
+    public int getBox()
+    {
+        int boxNumber;
+        boxNumber = (_currentCol / 3 + 1) + (_currentRow / 3 * 3);
+        
+        //debug code -->
+        //Console.WriteLine("colNumberBox: " + _currentCol + " horizontal box = " + (_currentCol / 3 + 1) + 
+        //    "\nrowNumberBox: " + _currentRow + " vertical box = " + (_currentRow / 3 * 3) +
+        //    "\ntotal box number = " + boxNumber);
+        
+        return boxNumber;
+    }
 
+    //get values of every number inside of the box
+    public int[][] getBoxValues()
+    {
+        throw new NotImplementedException();
+    }
      
 
 

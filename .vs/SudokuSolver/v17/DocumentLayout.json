@@ -22,12 +22,8 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 3,
+          "SelectedChildIndex": 2,
           "Children": [
-            {
-              "$type": "Bookmark",
-              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
-            },
             {
               "$type": "Document",
               "DocumentIndex": 2,
@@ -36,9 +32,10 @@
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\dev\\AI\\SudokuSolver\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA0AAAAuAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAA4AAAAjAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T17:11:00.585Z"
+              "WhenOpened": "2024-06-11T17:11:00.585Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -48,9 +45,10 @@
               "RelativeDocumentMoniker": "ConstraintChecker.cs",
               "ToolTip": "C:\\dev\\AI\\SudokuSolver\\ConstraintChecker.cs",
               "RelativeToolTip": "ConstraintChecker.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAIAAAAiAAAA",
+              "ViewState": "AQIAABIAAAAAAAAAAAA5wB4AAAAAAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T16:42:10.444Z"
+              "WhenOpened": "2024-06-11T16:42:10.444Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
@@ -60,7 +58,7 @@
               "RelativeDocumentMoniker": "ClassicSudokuSover.cs",
               "ToolTip": "C:\\dev\\AI\\SudokuSolver\\ClassicSudokuSover.cs",
               "RelativeToolTip": "ClassicSudokuSover.cs",
-              "ViewState": "AQIAABsAAAAAAAAAAAAowCMAAAAFAAAA",
+              "ViewState": "AQIAAEgAAAAAAAAAAAAywFAAAABCAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2024-06-11T16:33:49.213Z",
               "EditorCaption": ""

@@ -3,29 +3,40 @@
     public class ConstraintChecker
     {
 
-        public bool rowCheck(int[] row, int guess)
+        public List<int> rowCheck(int[] row)
         {
-            if (row.Contains(guess))
+            List<int> result = new List<int>();
+            for(int i  = 1; i <= 9; i++)
             {
-                return false;
+                if (!row.Contains(i))
+                {
+                    result.Add(i);
+                }
             }
-
-            return true;
+            return result;
         }
 
-        public bool collumnCheck(int[] col, int guess)
+        public List<int> collumnCheck(int[] col)
         {
-            if(col.Contains(guess))
+            List<int> result = new List<int>();
+            for (int i = 1; i <= 9; i++)
             {
-                return false;
+                if (!col.Contains(i))
+                {
+                    result.Add(i);
+                }
             }
-
-            return true;
+            return result;
         }
 
-        public bool boxCheck(int[,] board, int row, int col, int guess)
+        public List<int> boxCheck(int[][] box)
         {
-            return false;
+            List<int> result = new List<int>();
+            for (int i = 1; i <= 9; i++)
+            {
+
+            }
+            return result;
         }   
     }
 }

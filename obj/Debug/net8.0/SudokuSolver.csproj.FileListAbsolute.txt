@@ -12,3 +12,4 @@ C:\dev\AI\SudokuSolver\obj\Debug\net8.0\refint\SudokuSolver.dll
 C:\dev\AI\SudokuSolver\obj\Debug\net8.0\SudokuSolver.pdb
 C:\dev\AI\SudokuSolver\obj\Debug\net8.0\SudokuSolver.genruntimeconfig.cache
 C:\dev\AI\SudokuSolver\obj\Debug\net8.0\ref\SudokuSolver.dll
+C:\dev\AI\SudokuSolver\obj\Debug\net8.0\SudokuSolver.sourcelink.json
