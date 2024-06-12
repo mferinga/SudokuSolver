@@ -1,4 +1,5 @@
 ﻿using SudokuSolver;
+using System.Collections.Generic;
 
 class ClassicSudokuSover
 {
@@ -36,43 +37,61 @@ class ClassicSudokuSover
     }
 
     // Make method recursive and it must return a int[][] in other words the solution
-    public void SudokuSolver(int[][] grid)
+    public int[][] SudokuSolver()
     {
         List<int> possibleNumbers = new List<int>();
         
         if (_grid[_currentRow][_currentCol] == 0)
         {
             int[] row = _grid[_currentRow];
-            List<int> colList = new List<int>();
-            for (int i = 0; i < 9; i++)
-            {
-                colList.Add(_grid[i][_currentCol]);
-            }
-            int[] col = colList.ToArray();
+            int[] col = getColValues();
+            int[] box = getBoxValues();
 
-            possibleNumbers.Union(_constraintChecker.rowCheck(row)).ToList();
-            possibleNumbers.Union(_constraintChecker.collumnCheck(col)).ToList();
-            possibleNumbers.Union(_constraintChecker.rowCheck(row)).ToList();
-        } else
-        {
-            if(_currentCol != 8)
+            List<int> rowPos = _constraintChecker.rowCheck(row);
+            List<int> colPos = _constraintChecker.collumnCheck(col);
+            List<int> boxPos = _constraintChecker.boxCheck(box);
+
+            possibleNumbers.AddRange(rowPos);
+            possibleNumbers.AddRange(colPos);
+            possibleNumbers.AddRange(boxPos);
+
+            if (checkAppearsThreeTimes(possibleNumbers))
             {
-                _currentCol++;
-            } else if(_currentRow != 8)
-            {
-                _currentCol = 0;
-                _currentRow++;
-            } else
-            {
-                return;
+                _grid[_currentRow][_currentCol] = possibleNumbers[0];
             }
-            
         }
+
+        if (_currentRow == 8 && _currentCol == 8)
+        {
+            return _grid;
+        }
+        else if (_currentCol < 8)
+        {
+            _currentCol++;
+        }
+        else if (_currentCol == 8) 
+        {
+            _currentCol = 0;
+            _currentRow++;
+        }
+
+        return SudokuSolver();
     }
 
     public int[][] getGrid()
     {
         return _grid;
+    }
+
+    private bool checkAppearsThreeTimes(List<int> list)
+    {
+        var frequency = list.GroupBy(n => n)
+                            .Select(group => new { Number = group.Key, Count = group.Count() })
+                            .ToList();
+
+        // Check if there is exactly one number that appears three times
+        return frequency.Count(f => f.Count == 3) == 1;
+
     }
 
     public int getBox()
@@ -88,12 +107,84 @@ class ClassicSudokuSover
         return boxNumber;
     }
 
-    //get values of every number inside of the box
-    public int[][] getBoxValues()
+    public int[] getBoxValues()
     {
-        throw new NotImplementedException();
+        List<int> values = new List<int>();
+
+        int[] rows = checkRow();
+        int[] colls = checkCollumns();
+
+        foreach (int row in rows)
+        {
+            foreach (int col in colls)
+            {
+                values.Add(_grid[row][col]); 
+            }
+        }
+        
+        return values.ToArray();
     }
-     
+
+    private int[] getColValues()
+    {
+        List<int> colList = new List<int>();
+        for (int i = 0; i < 9; i++)
+        {
+            colList.Add(_grid[i][_currentCol]);
+        }
+        return colList.ToArray();
+    }
+
+    private int[] checkRow()
+    {
+        List<int> rows = new List<int>();
+        if (_currentRow < 3)
+        {
+            rows.AddRange(new List<int> { 0, 1, 2});
+        }
+        else if (_currentRow < 6)
+        {
+            rows.AddRange(new List<int> { 3, 4, 5 });
+        }
+        else
+        {
+            rows.AddRange(new List<int> { 6, 7, 8 });
+        }
+
+        return rows.ToArray();
+    }
+
+    private int[] checkCollumns()
+    {
+        List<int> colls = new List<int>();
+        if (_currentCol < 3)
+        {
+            colls.AddRange(new List<int> { 0, 1, 2 });
+        }
+        else if (_currentCol < 6)
+        {
+            colls.AddRange(new List<int> { 3, 4, 5 });
+        }
+        else
+        {
+            colls.AddRange(new List<int> { 6, 7, 8 });
+        }
+
+        return colls.ToArray();
+    }
+
+    public void print()
+    {
+        for (int n = 0; n < _grid.Length; n++)
+        {
+            for (int k = 0; k < _grid[n].Length; k++)
+            {
+                System.Console.Write("{0} ", _grid[n][k]);
+            }
+            System.Console.WriteLine();
+        }
+    }
+
 
 
 }

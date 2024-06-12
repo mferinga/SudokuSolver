@@ -12,7 +12,19 @@ namespace SudokuSolver
 
             grid = classicSudoku.getGrid();
             Console.WriteLine("row 3, col 4 = " + grid[2][3]);
+
+            classicSudoku.print();
+            
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();
+            Console.WriteLine();    
+
             classicSudoku.getBox();
+            classicSudoku.getBoxValues();
+            classicSudoku.SudokuSolver();
+
+            classicSudoku.print();
 
         }
 
