@@ -8,6 +8,7 @@ class ClassicSudokuSover
 
     private int _currentRow;
     private int _currentCol;
+    private int _zeroCount;
 
     public ClassicSudokuSover()
     {
@@ -16,6 +17,7 @@ class ClassicSudokuSover
 
         _currentRow = 0;
         _currentCol = 0;
+        _zeroCount = 43;
     }
 
 
@@ -25,10 +27,10 @@ class ClassicSudokuSover
                 [5, 0, 8, 0, 4, 7, 9, 0, 0],
                 [1, 0, 7, 0, 0, 0, 0, 0, 0],
                 [0, 0, 2, 1, 0, 0, 6, 0, 7],
-                [0, 0, 0, 3, 0, 0, 4, 0, 0],
-                [0, 3, 4, 9, 0, 0, 0, 6, 2],
-                [2, 1, 0, 6, 0, 4, 0, 0, 0],
-                [9, 2, 0, 0, 0, 1, 0, 0, 5],
+                [0, 0, 0, 3, 0, 0, 4, 0, 0], 
+                [0, 3, 4, 9, 0, 0, 0, 6, 2], 
+                [2, 1, 0, 6, 0, 4, 0, 0, 0], 
+                [9, 2, 0, 0, 0, 1, 0, 0, 5], 
                 [8, 5, 1, 0, 3, 9, 7, 0, 0],
                 [4, 7, 0, 0, 0, 6, 8, 9, 1],
             ];
@@ -55,16 +57,28 @@ class ClassicSudokuSover
             possibleNumbers.AddRange(colPos);
             possibleNumbers.AddRange(boxPos);
 
-            if (checkAppearsThreeTimes(possibleNumbers))
+            int numToFill = checkAppearsThreeTimes(possibleNumbers);
+            if (numToFill != 0)
             {
-                _grid[_currentRow][_currentCol] = possibleNumbers[0];
+                _zeroCount--;
+                _grid[_currentRow][_currentCol] = checkAppearsThreeTimes(possibleNumbers);
             }
+            
         }
 
         if (_currentRow == 8 && _currentCol == 8)
         {
-            return _grid;
-        }
+            if(_zeroCount == 0)
+            {
+                return _grid;
+            }
+            else
+            {
+                _currentRow = 0;
+                _currentCol = 0;
+            }
+            
+        } 
         else if (_currentCol < 8)
         {
             _currentCol++;
@@ -83,15 +97,23 @@ class ClassicSudokuSover
         return _grid;
     }
 
-    private bool checkAppearsThreeTimes(List<int> list)
+    private int checkAppearsThreeTimes(List<int> list)
     {
         var frequency = list.GroupBy(n => n)
                             .Select(group => new { Number = group.Key, Count = group.Count() })
                             .ToList();
 
-        // Check if there is exactly one number that appears three times
-        return frequency.Count(f => f.Count == 3) == 1;
+        // Check if there is exactly one number that appears three times 
 
+        // Find the number that appears exactly three times
+        var numberAppearingThrice = frequency.FirstOrDefault(f => f.Count == 3)?.Number;
+
+        // Check if there is exactly one number that appears three times
+        if (numberAppearingThrice != null && frequency.Count(f => f.Count == 3) == 1)
+        {
+            return numberAppearingThrice.Value;
+        }
+        return 0;
     }
 
     public int getBox()
