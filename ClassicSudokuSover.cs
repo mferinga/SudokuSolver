@@ -26,20 +26,19 @@ class ClassicSudokuSover
                 [8, 5, 1, 0, 3, 9, 7, 0, 0],
                 [4, 7, 0, 0, 0, 6, 8, 9, 1],
             ];
-
         int[][] grid2 = [
-                [7, 0, 0, 6, 0, 1, 0, 0, 3], //5
-                [0, 0, 0, 0, 4, 0, 0, 0, 0], //13
-                [0, 8, 0, 3, 0, 9, 0, 4, 0], //18
-                [0, 0, 5, 0, 9, 0, 1, 0, 0], //24
-                [0, 9, 0, 0, 0, 0, 0, 3, 0], //31
-                [0, 0, 3, 0, 1, 0, 4, 0, 0], //37
-                [0, 6, 0, 4, 0, 7, 0, 1, 0], //42
-                [0, 0, 0, 0, 2, 0, 0, 0, 0], //50
-                [3, 0, 0, 1, 0, 6, 0, 0, 9], //55
+                [7, 0, 0, 6, 0, 1, 0, 0, 3],
+                [0, 0, 0, 0, 4, 0, 0, 0, 0],
+                [0, 8, 0, 3, 0, 9, 0, 4, 0],
+                [0, 0, 5, 0, 9, 0, 1, 0, 0],
+                [0, 9, 0, 0, 0, 0, 0, 3, 0],
+                [0, 0, 3, 0, 1, 0, 4, 0, 0],
+                [0, 6, 0, 4, 0, 7, 0, 1, 0],
+                [0, 0, 0, 0, 2, 0, 0, 0, 0],
+                [3, 0, 0, 1, 0, 6, 0, 0, 9],
             ];
 
-        _grid = grid2;
+        _grid = grid1;
     }
 
     public bool SudokuSolver()
@@ -59,16 +58,6 @@ class ClassicSudokuSover
         int[] rowValues = _grid[rowOfEmptyCell];
         int[] colValues = getColValues(colOfEmptyCell);
         int[] boxValues = getBoxValues(rowOfEmptyCell, colOfEmptyCell);
-
-        //if (_grid[rowOfEmptyCell][colOfEmptyCell] == 0)
-        //{
-        //    //if there is a naked single in that cell fills it in other wise it proceeds
-        //    fillInNakedSingle(rowValues, colValues, boxValues, rowOfEmptyCell, colOfEmptyCell);
-        //    if (SudokuSolver())
-        //    {
-        //        return true;
-        //    }
-        //}
 
         for (int guess = 1; guess <= 9; guess++)
         {
@@ -114,52 +103,6 @@ class ClassicSudokuSover
 
         return emptycell;
     }
-
-    private void fillInNakedSingle(int[] row, int[] col, int[] box, int curRow, int curCol)
-    {
-        List<int> possibleNumbers = _constraintChecker.CheckAllConstraints(row, col, box);
-
-        //check if current cell is a naked single (so we don't have to make a guess)
-        int numToFill = checkAppearsThreeTimes(possibleNumbers);
-        if (numToFill != 0)
-        {
-            _grid[curRow][curCol] = checkAppearsThreeTimes(possibleNumbers);
-        }
-
-
-    }
-
-    //checks on naked singles
-    private int checkAppearsThreeTimes(List<int> list)
-    {
-        var frequency = list.GroupBy(n => n)
-                            .Select(group => new { Number = group.Key, Count = group.Count() })
-                            .ToList();
-
-        //check if there is exactly one number that appears three times 
-        //find the number that appears exactly three times
-        var numberAppearingThrice = frequency.FirstOrDefault(f => f.Count == 3)?.Number;
-
-        //check if there is exactly one number that appears three times
-        if (numberAppearingThrice != null && frequency.Count(f => f.Count == 3) == 1)
-        {
-            return numberAppearingThrice.Value;
-        }
-        return 0;
-    }
-
-    //private int getBox()
-    //{
-    //    int boxNumber;
-    //    boxNumber = (_currentCol / 3 + 1) + (_currentRow / 3 * 3);
-        
-    //    //debug code -->
-    //    //Console.WriteLine("colNumberBox: " + _currentCol + " horizontal box = " + (_currentCol / 3 + 1) + 
-    //    //    "\nrowNumberBox: " + _currentRow + " vertical box = " + (_currentRow / 3 * 3) +
-    //    //    "\ntotal box number = " + boxNumber);
-        
-    //    return boxNumber;
-    //}
 
     private int[] getBoxValues(int curRow, int curCol)
     {
