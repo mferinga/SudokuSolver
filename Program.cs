@@ -15,16 +15,18 @@ namespace SudokuSolver
 
             classicSudoku.print();
             
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();
-            Console.WriteLine();    
+            Console.WriteLine("\nSudoku Solution:");
 
-            classicSudoku.getBox();
-            classicSudoku.getBoxValues();
-            classicSudoku.SudokuSolver();
+            if (classicSudoku.SudokuSolver())
+            {
+                classicSudoku.print();
+            }
+            else
+            {
+                Console.WriteLine("No solution was found");
+            }
 
-            classicSudoku.print();
+            
 
         }
 
