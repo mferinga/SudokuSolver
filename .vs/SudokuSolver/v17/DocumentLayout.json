@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\dev\\AI\\SudokuSolver\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{2E052DD3-F48D-4914-BEDA-1DC62C66AFAB}|SudokuSolver.csproj|c:\\dev\\ai\\sudokusolver\\constraintchecker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E052DD3-F48D-4914-BEDA-1DC62C66AFAB}|SudokuSolver.csproj|solutionrelative:constraintchecker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2E052DD3-F48D-4914-BEDA-1DC62C66AFAB}|SudokuSolver.csproj|c:\\dev\\ai\\sudokusolver\\killersudokusolver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E052DD3-F48D-4914-BEDA-1DC62C66AFAB}|SudokuSolver.csproj|solutionrelative:killersudokusolver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{2E052DD3-F48D-4914-BEDA-1DC62C66AFAB}|SudokuSolver.csproj|c:\\dev\\ai\\sudokusolver\\classicsudokusover.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{2E052DD3-F48D-4914-BEDA-1DC62C66AFAB}|SudokuSolver.csproj|solutionrelative:classicsudokusover.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{2E052DD3-F48D-4914-BEDA-1DC62C66AFAB}|SudokuSolver.csproj|c:\\dev\\ai\\sudokusolver\\killercage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E052DD3-F48D-4914-BEDA-1DC62C66AFAB}|SudokuSolver.csproj|solutionrelative:killercage.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E052DD3-F48D-4914-BEDA-1DC62C66AFAB}|SudokuSolver.csproj|c:\\dev\\ai\\sudokusolver\\killersudoku.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E052DD3-F48D-4914-BEDA-1DC62C66AFAB}|SudokuSolver.csproj|solutionrelative:killersudoku.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{2E052DD3-F48D-4914-BEDA-1DC62C66AFAB}|SudokuSolver.csproj|c:\\dev\\ai\\sudokusolver\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{2E052DD3-F48D-4914-BEDA-1DC62C66AFAB}|SudokuSolver.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{2E052DD3-F48D-4914-BEDA-1DC62C66AFAB}|SudokuSolver.csproj|c:\\dev\\ai\\sudokusolver\\constraintchecker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{2E052DD3-F48D-4914-BEDA-1DC62C66AFAB}|SudokuSolver.csproj|solutionrelative:constraintchecker.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -22,23 +30,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\dev\\AI\\SudokuSolver\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\dev\\AI\\SudokuSolver\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AQIAAAUAAAAAAAAAAAAswBEAAAAhAAAA",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAABFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T17:11:00.585Z"
+              "WhenOpened": "2024-06-11T17:11:00.585Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
               "Title": "ConstraintChecker.cs",
               "DocumentMoniker": "C:\\dev\\AI\\SudokuSolver\\ConstraintChecker.cs",
               "RelativeDocumentMoniker": "ConstraintChecker.cs",
@@ -46,20 +55,45 @@
               "RelativeToolTip": "ConstraintChecker.cs",
               "ViewState": "AQIAAAAAAAAAAAAAAAAAABAAAAABAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T16:42:10.444Z",
+              "WhenOpened": "2024-06-11T16:42:10.444Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "KillerSudokuSolver.cs",
+              "DocumentMoniker": "C:\\dev\\AI\\SudokuSolver\\KillerSudokuSolver.cs",
+              "RelativeDocumentMoniker": "KillerSudokuSolver.cs",
+              "ToolTip": "C:\\dev\\AI\\SudokuSolver\\KillerSudokuSolver.cs",
+              "RelativeToolTip": "KillerSudokuSolver.cs",
+              "ViewState": "AQIAAEMAAAAAAAAAAAAuwEIAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-11T16:33:49.213Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "ClassicSudokuSover.cs",
-              "DocumentMoniker": "C:\\dev\\AI\\SudokuSolver\\ClassicSudokuSover.cs",
-              "RelativeDocumentMoniker": "ClassicSudokuSover.cs",
-              "ToolTip": "C:\\dev\\AI\\SudokuSolver\\ClassicSudokuSover.cs",
-              "RelativeToolTip": "ClassicSudokuSover.cs",
-              "ViewState": "AQIAAAgAAAAAAAAAAAAQwD8AAAAsAAAA",
+              "Title": "KillerCage.cs",
+              "DocumentMoniker": "C:\\dev\\AI\\SudokuSolver\\KillerCage.cs",
+              "RelativeDocumentMoniker": "KillerCage.cs",
+              "ToolTip": "C:\\dev\\AI\\SudokuSolver\\KillerCage.cs",
+              "RelativeToolTip": "KillerCage.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAAAZAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-11T16:33:49.213Z",
+              "WhenOpened": "2024-06-15T09:34:18.668Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "KillerSudoku.cs",
+              "DocumentMoniker": "C:\\dev\\AI\\SudokuSolver\\KillerSudoku.cs",
+              "RelativeDocumentMoniker": "KillerSudoku.cs",
+              "ToolTip": "C:\\dev\\AI\\SudokuSolver\\KillerSudoku.cs",
+              "RelativeToolTip": "KillerSudoku.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAhAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-06-15T09:51:32.77Z",
               "EditorCaption": ""
             }
           ]

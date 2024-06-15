@@ -5,7 +5,7 @@ namespace SudokuSolver
     {
         public static void Main(String[] args)
         {
-            ClassicSudokuSover classicSudoku = new ClassicSudokuSover();
+            KillerSudokuSolver classicSudoku = new KillerSudokuSolver();
             ConstraintChecker checker = new ConstraintChecker();
 
             int[][] grid;
@@ -17,7 +17,7 @@ namespace SudokuSolver
             
             Console.WriteLine("\nSudoku Solution:");
 
-            if (classicSudoku.SudokuSolver())
+            if (classicSudoku.ClassicSudokuSolver())
             {
                 classicSudoku.print();
             }
