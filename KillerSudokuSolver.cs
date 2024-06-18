@@ -8,13 +8,20 @@ class KillerSudokuSolver
     private KillerSudoku _killerSudoku;
 
     private int _currentKillerBox;
-    private int _step = 0;
-
 
     public KillerSudokuSolver()
     {
         _constraintChecker = new ConstraintChecker();
         GenerateSudoku();
+    }
+
+    public int[][] getGrid()
+    {
+        return _grid;
+    }
+    public int[,] getKillerGrid()
+    {
+        return _killerSudoku.grid;
     }
 
     public void GenerateSudoku()
@@ -55,7 +62,6 @@ class KillerSudokuSolver
 
         _grid = classicGrid3;
     }
-
     public void GenerateKillerSudoku()
     {
         KillerSudoku killerSudoku;
@@ -79,6 +85,7 @@ class KillerSudokuSolver
         killerSudoku = new KillerSudoku(killerGrid1, cages1);
         _killerSudoku = killerSudoku;
     }
+
 
     public bool ClassicSudokuSolver()
     {
@@ -116,57 +123,7 @@ class KillerSudokuSolver
         //no solution found
         return false;
     }
-
-    public bool SolveKillerSudoku()
-    {
-        int[] emptyCell = getEmptyKillerCell();
-        int rowOfEmptyCell = emptyCell[0];
-        int colOfEmptyCell = emptyCell[1];
-
-        //Base case: No more empty cells
-        if (rowOfEmptyCell == -1 && colOfEmptyCell == -1)
-        {
-            return true;
-        }
-
-        //Get all values of the cells current row, column, box, and cage
-        int[] rowValues = getKillerRowValues(rowOfEmptyCell);
-        int[] colValues = getKillerColValues(colOfEmptyCell);
-        int[] boxValues = getKillerBoxValues(rowOfEmptyCell, colOfEmptyCell);
-        int[] cageValues = getCageValues(rowOfEmptyCell, colOfEmptyCell);
-
-        //Get possible guesses for the current empty cell
-        List<int[]> guessForCage = getKillerGuess(rowOfEmptyCell, colOfEmptyCell);
-
-        for(int guess = 1; guess <= 9; guess++)
-        {
-            if (_constraintChecker.KillerDuplicateCheck(rowValues, colValues, boxValues, cageValues, guess))
-            {
-                if (_constraintChecker.checkCageSum(_killerSudoku.cages[_currentKillerBox], guess))
-                {
-                    _killerSudoku.grid[rowOfEmptyCell, colOfEmptyCell] = guess;
-                    _killerSudoku.cages[_currentKillerBox].addFilledValue(guess);
-
-                    if (SolveKillerSudoku())
-                    {
-                        return true;
-                    }
-
-                    updateCurrentKillerBox(rowOfEmptyCell, colOfEmptyCell);
-                    _killerSudoku.grid[rowOfEmptyCell, colOfEmptyCell] = 0;
-                    _killerSudoku.cages[_currentKillerBox].removeFilledValue(guess);
-                } 
-            }
-        }
-        
-
-        return false;
-    }
-
-    public int[][] getGrid()
-    {
-        return _grid;
-    }
+    
     private int[] getEmptyCell()
     {
         //if grid is fully filled give impossible grid possition
@@ -218,7 +175,7 @@ class KillerSudokuSolver
         List<int> rows = new List<int>();
         if (row < 3)
         {
-            rows.AddRange(new List<int> { 0, 1, 2});
+            rows.AddRange(new List<int> { 0, 1, 2 });
         }
         else if (row < 6)
         {
@@ -261,11 +218,71 @@ class KillerSudokuSolver
         }
     }
 
-    
-    public int[,] getKillerGrid()
+    public bool SolveKillerSudoku()
     {
-        return _killerSudoku.grid;
+        int[] emptyCell = getEmptyKillerCell();
+        int rowOfEmptyCell = emptyCell[0];
+        int colOfEmptyCell = emptyCell[1];
+
+        //Base case: No more empty cells
+        if (rowOfEmptyCell == -1 && colOfEmptyCell == -1)
+        {
+            return true;
+        }
+
+        //Get all values of the cells current row, column, box, and cage
+        int[] rowValues = getKillerRowValues(rowOfEmptyCell);
+        int[] colValues = getKillerColValues(colOfEmptyCell);
+        int[] boxValues = getKillerBoxValues(rowOfEmptyCell, colOfEmptyCell);
+        int[] cageValues = getCageValues(rowOfEmptyCell, colOfEmptyCell);
+
+        for (int guess = 1; guess <= 9; guess++)
+        {
+            if (_constraintChecker.KillerDuplicateCheck(rowValues, colValues, boxValues, cageValues, guess))
+            {
+                if (_constraintChecker.checkCageSum(_killerSudoku.cages[_currentKillerBox], guess))
+                {
+                    _killerSudoku.grid[rowOfEmptyCell, colOfEmptyCell] = guess;
+                    _killerSudoku.cages[_currentKillerBox].addFilledValue(guess);
+
+                    if (SolveKillerSudoku())
+                    {
+                        return true;
+                    }
+
+                    updateCurrentKillerBox(rowOfEmptyCell, colOfEmptyCell);
+                    _killerSudoku.grid[rowOfEmptyCell, colOfEmptyCell] = 0;
+                    _killerSudoku.cages[_currentKillerBox].removeFilledValue(guess);
+                } 
+            }
+        }
+        
+
+        return false;
     }
+
+    private int[] getEmptyKillerCell()
+    {
+        //if grid is fully filled give impossible grid possition
+        int[] emptycell = new int[] { -1, -1 };
+
+        for (int row = 0; row < 9; row++)
+        {
+            for (int col = 0; col < 9; col++)
+            {
+                if (_killerSudoku.grid[row, col] == 0)
+                {
+                    emptycell[0] = row;
+                    emptycell[1] = col;
+                    return emptycell;
+                }
+            }
+        }
+
+        return emptycell;
+    }
+
+    
     private int[] getKillerBoxValues(int curRow, int curCol)
     {
         List<int> values = new List<int>();
@@ -300,26 +317,6 @@ class KillerSudokuSolver
             colList.Add(_killerSudoku.grid[row, i]);
         }
         return colList.ToArray();
-    }
-    private int[] getEmptyKillerCell()
-    {
-        //if grid is fully filled give impossible grid possition
-        int[] emptycell = new int[] { -1, -1 };
-
-        for (int row = 0; row < 9; row++)
-        {
-            for (int col = 0; col < 9; col++)
-            {
-                if (_killerSudoku.grid[row, col] == 0)
-                {
-                    emptycell[0] = row;
-                    emptycell[1] = col;
-                    return emptycell;
-                }
-            }
-        }
-
-        return emptycell;
     }
     private int[] getCageValues(int row, int col)
     {
@@ -360,6 +357,8 @@ class KillerSudokuSolver
 
         throw new Exception("cage not found");
     }
+
+    //updates the index of the current cage _currentKillerBox
     private void updateCurrentKillerBox(int row, int col)
     {
         for (int i = 0; i < _killerSudoku.cages.Count; i++)
@@ -375,42 +374,7 @@ class KillerSudokuSolver
             }
         }
     }
-    public List<int[]> getKillerGuess(int row, int col)
-    {
 
-        int sum = _killerSudoku.cages[_currentKillerBox].getSum();
-        int amount = _killerSudoku.cages[_currentKillerBox].getPositions().Count;
-        int maxNum = 9; 
-
-        // Generate all possible combinations
-        List<int[]> combinations = GenerateUniqueCombinations(sum, amount, maxNum);
-
-        return combinations;
-    }
-    public static List<int[]> GenerateUniqueCombinations(int targetSum, int length, int maxNum)
-    {
-        List<int[]> results = new List<int[]>();
-        GenerateUniqueCombinationsHelper(targetSum, length, maxNum, new List<int>(), results, 1);
-        return results;
-    }
-    private static void GenerateUniqueCombinationsHelper(int targetSum, int length, int maxNum, List<int> current, List<int[]> results, int start)
-    {
-        if (current.Count == length)
-        {
-            if (current.Sum() == targetSum)
-            {
-                results.Add(current.ToArray());
-            }
-            return;
-        }
-
-        for (int i = start; i <= maxNum; i++)
-        {
-            current.Add(i);
-            GenerateUniqueCombinationsHelper(targetSum, length, maxNum, current, results, i + 1);
-            current.RemoveAt(current.Count - 1);
-        }
-    }
     public void printKiller()
     {
 
@@ -441,7 +405,6 @@ class KillerSudokuSolver
             }
         }
     }
-
 
     public List<KillerCage> fillCages(List<KillerCage> cages)
     {

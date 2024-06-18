@@ -10,7 +10,6 @@
             this.grid = grid;
             this.cages = cages;
         }
-
         public void addCage(KillerCage cage)
         {
             cages.Add(cage);

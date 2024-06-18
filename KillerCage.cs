@@ -24,7 +24,6 @@
 
             return sumOfFilledInValues;
         }
-
         public List<int[]> getPositions()
         {
             return positionKillerCells;
@@ -33,12 +32,10 @@
         {
             return sumOfKillerCage;
         }
-
         public void addFilledValue(int value)
         {
             filledInValues.Add(value);
         }
-
         public void removeFilledValue(int value) 
         {
             filledInValues.Remove(value); 
