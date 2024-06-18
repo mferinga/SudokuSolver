@@ -8,6 +8,7 @@ class KillerSudokuSolver
     private KillerSudoku _killerSudoku;
 
     private int _currentKillerBox;
+    private int _step = 0;
 
 
     public KillerSudokuSolver()
@@ -73,7 +74,7 @@ class KillerSudokuSolver
         };
         List<KillerCage> cages1 = new List<KillerCage>();
 
-        cages1 = fillCages2(cages1);
+        cages1 = fillCages(cages1);
 
         killerSudoku = new KillerSudoku(killerGrid1, cages1);
         _killerSudoku = killerSudoku;
@@ -122,37 +123,43 @@ class KillerSudokuSolver
         int rowOfEmptyCell = emptyCell[0];
         int colOfEmptyCell = emptyCell[1];
 
+        //Base case: No more empty cells
         if (rowOfEmptyCell == -1 && colOfEmptyCell == -1)
         {
             return true;
         }
 
-        //get all values of the cells current row, collumn and box
+        //Get all values of the cells current row, column, box, and cage
         int[] rowValues = getKillerRowValues(rowOfEmptyCell);
         int[] colValues = getKillerColValues(colOfEmptyCell);
         int[] boxValues = getKillerBoxValues(rowOfEmptyCell, colOfEmptyCell);
         int[] cageValues = getCageValues(rowOfEmptyCell, colOfEmptyCell);
 
+        //Get possible guesses for the current empty cell
         List<int[]> guessForCage = getKillerGuess(rowOfEmptyCell, colOfEmptyCell);
 
-        foreach (int[] killerGuess in guessForCage) 
+        for(int guess = 1; guess <= 9; guess++)
         {
-            for (int guess = 1; guess <= 9; guess++)
+            if (_constraintChecker.KillerDuplicateCheck(rowValues, colValues, boxValues, cageValues, guess))
             {
-                if (_constraintChecker.KillerGuessCheck(rowValues, colValues, boxValues, cageValues, killerGuess, guess))
+                if (_constraintChecker.checkCageSum(_killerSudoku.cages[_currentKillerBox], guess))
                 {
                     _killerSudoku.grid[rowOfEmptyCell, colOfEmptyCell] = guess;
+                    _killerSudoku.cages[_currentKillerBox].addFilledValue(guess);
 
                     if (SolveKillerSudoku())
                     {
                         return true;
                     }
 
+                    updateCurrentKillerBox(rowOfEmptyCell, colOfEmptyCell);
                     _killerSudoku.grid[rowOfEmptyCell, colOfEmptyCell] = 0;
-                }
+                    _killerSudoku.cages[_currentKillerBox].removeFilledValue(guess);
+                } 
             }
         }
         
+
         return false;
     }
 
@@ -353,6 +360,21 @@ class KillerSudokuSolver
 
         throw new Exception("cage not found");
     }
+    private void updateCurrentKillerBox(int row, int col)
+    {
+        for (int i = 0; i < _killerSudoku.cages.Count; i++)
+        {
+            List<int[]> positions = _killerSudoku.cages[i].getPositions();
+            foreach (int[] position in positions)
+            {
+                if (position[0] == row && position[1] == col)
+                {
+                    _currentKillerBox = i;
+                    return;
+                }
+            }
+        }
+    }
     public List<int[]> getKillerGuess(int row, int col)
     {
 
@@ -399,6 +421,24 @@ class KillerSudokuSolver
                 System.Console.Write("{0} ", _killerSudoku.grid[n, k]);
             }
             System.Console.WriteLine();
+        }
+
+        if (_killerSudoku.cages[0].getFilledInValues().Count != 0)
+        {
+            foreach (KillerCage cage in _killerSudoku.cages)
+            {
+                int total = 0;
+                System.Console.WriteLine("Cage sum: {0}", cage.getSum());
+                foreach (int value in cage.getFilledInValues())
+                {
+                    total += value;
+                    System.Console.Write("{0} + ", value);
+                }
+
+                System.Console.Write("= {0}", total);
+                System.Console.WriteLine();
+                System.Console.WriteLine();
+            }
         }
     }
 
